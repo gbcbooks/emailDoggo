@@ -4,13 +4,34 @@ from nltk.tokenize import word_tokenize
 from nltk.probability import FreqDist
 from joblib import load
 import re
+import matplotlib.pyplot as plt
 
 from sklearn.feature_extraction.text import TfidfVectorizer
+
+
+def plot_bar(data, title, xlabel, ylabel):
+    keys = [item[0] for item in data]
+    values = [item[1] for item in data]
+    plt.bar(keys, values)
+    plt.title(title)
+    plt.xlabel(xlabel)
+    plt.ylabel(ylabel)
+    plt.xticks(rotation=45, ha='right')
+    plt.show()
 
 
 class DataAnalysis:
     def __init__(self, db_file='web_crawler.db'):
         self.db_file = db_file
+
+        # Function to plot a bar chart
+
+    def visualize_data(self, common_words, common_directories):
+        # Plot Common Words
+        plot_bar(common_words, 'Top Common Words', 'Words', 'Frequency')
+
+        # Plot common directories
+        plot_bar(common_directories, 'Top Common Directories', 'Directories', 'Frequency')
 
     def get_all_content(self):
         conn = sqlite3.connect(self.db_file)

@@ -23,7 +23,7 @@ class WebCrawler:
         self.thread_lock = threading.Lock()
         self.url_queue = Queue()
         self.output_file = output_file
-        self.keywords = keywords
+        self.load_keywords_from_file(keywords) # load keywords
         self.user_agent = user_agent or "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36"
         self.requests_per_second = requests_per_second or 1  # Default rate limiter
         self.proxy = proxy
@@ -52,6 +52,13 @@ class WebCrawler:
 
     def colored_text(self, text, color_code):
         return f"\033[{color_code}m{text}\033[0m"
+
+    def load_keywords_from_file(self, filename):
+        with open(filename, 'r') as file:
+            # Reading lines from the file and stripping whitespace
+            self.keywords = [line.strip() for line in file.readlines()]
+
+        print(f"Loaded {len(self.keywords)} keywords from {filename}")
 
     def normalize_url(self, base_url, found_url):
         # Convert relative URL to absolute URL
