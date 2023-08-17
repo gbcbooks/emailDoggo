@@ -74,5 +74,4 @@ if __name__ == '__main__':
     args = parser.parse_args()
     splash()
     crawler = WebCrawler(args.url, args.depth, args.threads, args.output, args.keywords, args.user_agent, args.rate_limit)
-    # Add load code
     crawler.wait_for_completion()
