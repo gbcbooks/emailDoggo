@@ -86,14 +86,19 @@ class WebCrawler:
         for url, depth in state['url_queue']:
             self.url_queue.put((url, depth))
 
-        print(f"Crawling state loaded from {file_name}.")
+        print(f"Crawling state loaded from {file_name}.")        
 
     def write_to_file(self, emails):
+        with open(self.output_file, 'r') as file:
+            emails_set = file.readlines()
         with open(self.output_file, 'a') as file:
-            for email in emails:
-                file.write(email + '\n')
-                print(f"Written email {email} to file.")
-
+            if emails not in emails_set:
+                for email in emails:
+                    file.write(email + '\n')
+                    print(f"Written emssail {email} to file.")
+            else:
+                print(f"email is exist in {self.output_file}")
+                
     def wait_for_completion(self):
         self.executor.shutdown(wait=True)
         print("All threads have completed.")
@@ -165,9 +170,11 @@ class WebCrawler:
                         emails = re.findall(r'[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}', soup.get_text())
                         if emails:
                             self.data_store.insert_emails(emails, current_url)
+                            self.write_to_file(emails)
                         for email in emails:
                             print(self.colored_text(f"[+] Email extracted: {email}", self.GREEN))
                             self.save_state(self.SAVE_FILE)
+                            
 
                     for link in soup.find_all('a'):
                         next_url = link.get('href')

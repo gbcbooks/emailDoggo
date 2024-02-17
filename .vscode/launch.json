@@ -1,0 +1,23 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python main.py",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "main.py",
+            "console": "integratedTerminal",
+            "args": [
+                "-u","https://www.google.com/search?q=tea&newwindow=1&sca_esv=130c2c2530734d82&sxsrf=ACQVn087ncIAXT8EGSIvjsJ4FCqoa-SoBA%3A1708158862270&ei=jm_QZf-TEPyG4-EPg9i1mAY&ved=0ahUKEwj_ktLR-7GEAxV8wzgGHQNsDWMQ4dUDCBA&uact=5&oq=tea&gs_lp=Egxnd3Mtd2l6LXNlcnAiA3RlYTIKECMYgAQYigUYJzIKEC4YgAQYigUYJzILEAAYgAQYigUYkQIyDhAAGIAEGIoFGJECGLEDMhAQLhiABBgUGIcCGMcBGK8BMggQABiABBixAzIIEAAYgAQYsQMyDhAuGK8BGMcBGLEDGIAEMhEQLhiABBixAxiDARjHARivATIFEAAYgARI5hBQ0wNYzA1wBHgBkAEAmAHfAaABggiqAQUwLjEuNLgBA8gBAPgBAagCD8ICChAAGEcY1gQYsAPCAgcQIxjqAhgnwgIcEC4YgAQYigUYQxjHARjRAxjIAxjqAhi0AtgBAcICBBAjGCfCAhEQABiABBiKBRiRAhixAxiDAcICCxAuGIAEGLEDGIMBwgIOEAAYgAQYigUYsQMYgwHCAgsQABiABBixAxiDAcICEBAAGIAEGIoFGJECGEYY-wHCAhEQLhiABBixAxiDARjHARjRA8ICCxAAGIAEGIoFGLEDwgIcEAAYgAQYigUYkQIYRhj7ARiXBRiMBRjdBNgBAsICCxAuGIAEGIoFGLEDiAYBkAYIugYGCAEQARgIugYGCAIQARgT&sclient=gws-wiz-serp",
+                "-t","1",
+                "-k","keywords.txt",
+                "-d","20",
+                "-o","emails.txt",
+                "-r","15"
+            ]
+        }
+    ]
+}

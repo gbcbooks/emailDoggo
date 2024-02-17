@@ -69,7 +69,7 @@ if __name__ == '__main__':
     parser.add_argument('--load', '-l', help='Loads a previously saved session')
     parser.add_argument('--output', '-o', default='emails.txt', help='Output file for emails (default: emails.txt)')
     parser.add_argument('--user-agent', '-x', default=None, help='Set the user-agent header for requests')
-    parser.add_argument('--keywords', '-k', default='keywords.txt', help='Filename for keywords (Default: keywords.txt)')
+    parser.add_argument('--keywords', '-k', default='keywords.txt', help='Filename for keywords (Default: keywords.txt), left @ means all emails')
 
     args = parser.parse_args()
     splash()
