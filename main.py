@@ -70,8 +70,9 @@ if __name__ == '__main__':
     parser.add_argument('--output', '-o', default='emails.txt', help='Output file for emails (default: emails.txt)')
     parser.add_argument('--user-agent', '-x', default=None, help='Set the user-agent header for requests')
     parser.add_argument('--keywords', '-k', default='keywords.txt', help='Filename for keywords (Default: keywords.txt), left @ means all emails')
+    parser.add_argument('--domain', '-D', default='domain.txt', help='Filename for domain (Default: domain.txt), for exclude domain')
 
     args = parser.parse_args()
     splash()
-    crawler = WebCrawler(args.url, args.depth, args.threads, args.output, args.keywords, args.user_agent, args.rate_limit)
+    crawler = WebCrawler(args.url, args.depth, args.threads, args.output, args.keywords, args.domain, args.user_agent, args.rate_limit)
     crawler.wait_for_completion()

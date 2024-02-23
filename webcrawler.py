@@ -13,7 +13,7 @@ from requests import Timeout
 
 
 class WebCrawler:
-    def __init__(self, start_url, depth, num_threads, output_file, keywords, user_agent=None, requests_per_second=None,
+    def __init__(self, start_url, depth, num_threads, output_file, keywords, domain, user_agent=None, requests_per_second=None,
                  proxy=None, request_timeout=10):
         print(f"Starting crawl at {start_url} with depth {depth} using {num_threads} threads.")
         self.start_url = start_url
@@ -23,6 +23,7 @@ class WebCrawler:
         self.thread_lock = threading.Lock()
         self.url_queue = Queue()
         self.output_file = output_file
+        self.load_excluded_domain(domain)
         self.load_keywords_from_file(keywords) # load keywords
         self.user_agent = user_agent or "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36"
         self.requests_per_second = requests_per_second or 1  # Default rate limiter
@@ -112,6 +113,19 @@ class WebCrawler:
             self.url_queue.task_done()
             return True
         return False
+    
+    def load_excluded_domain(self, filename):
+        with open(filename, "r") as file:
+            # Reading lines from the file and stripping whitespace
+            self.excluded_domain = [line.replace("\n","") for line in file.readlines()]
+        print(f"Loaded {len(self.excluded_domain)} keywords from {filename}")
+    
+    def domain_exclude_check(self, current_url):
+        current_domain = urlparse(current_url).netloc
+        if current_domain in self.excluded_domain:
+            print(f"Skipping {current_domain}. excluded")
+            return True
+        return False
 
     def dup_check(self, current_url, current_depth):
         if current_depth > self.depth or current_url in self.visited_urls:
@@ -139,6 +153,9 @@ class WebCrawler:
 
             current_url, current_depth = self.url_queue.get()
 
+            if self.domain_exclude_check(current_url):
+                continue
+            
             # Check for duplicate urls
             if self.dup_check(current_url, current_depth):
                 continue
